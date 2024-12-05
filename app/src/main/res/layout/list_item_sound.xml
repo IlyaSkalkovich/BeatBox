@@ -15,8 +15,8 @@
         android:layout_margin="8dp">
 
         <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_gravity="center"
             android:onClick="@{() -> viewModel.onButtonClicked()}"
             android:padding="30dp"

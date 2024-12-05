@@ -6,17 +6,27 @@ import android.media.SoundPool
 import android.os.Build
 import android.util.Log
 import android.widget.SeekBar
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import java.io.IOException
 
 private const val TAG = "BeatBox"
 private const val SOUNDS_FOLDER = "sample_sounds"
 private const val MAX_SOUNDS = 5
+private const val BEAT_BOX_DEBUG = "BeatBoxDebugInfo"
 
-class BeatBox(private val assets: AssetManager) {
+class BeatBox(private val assets: AssetManager): BaseObservable() {
     private val sounds: List<Sound>
     private val soundPool = SoundPool.Builder()
         .setMaxStreams(MAX_SOUNDS)
         .build()
+
+    @Bindable
+    var playbackSpeed = 100
+    @Bindable
+    val minProgress = 50
+    @Bindable
+    val maxProgress = 200
 
     init {
         sounds = loadSounds()
@@ -55,14 +65,28 @@ class BeatBox(private val assets: AssetManager) {
         return sounds
     }
 
-    fun play(sound: Sound, playbackSpeed: Float) {
+    fun play(sound: Sound) {
         sound.soundId?.let {
-            soundPool.play(it, 1.0f, 1.0f, 1, 0, playbackSpeed)
+            soundPool.play(it,
+                1.0f,
+                1.0f,
+                1,
+                0,
+                playbackSpeed.toFloat().div(100)
+            )
         }
+    }
+
+    fun onProgressChanged(
+        seekBar: SeekBar?,
+        progress: Int,
+        fromUser: Boolean
+    ) {
+        playbackSpeed = progress
+        notifyPropertyChanged(BR.playbackSpeed)
     }
 
     fun release() {
         soundPool.release()
     }
-
 }

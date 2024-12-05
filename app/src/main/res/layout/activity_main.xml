@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.example.beatbox.SoundViewModel"/>
+            name="beatBox"
+            type="com.example.beatbox.BeatBox"/>
     </data>
 
     <RelativeLayout
@@ -29,19 +29,19 @@
             android:layout_alignParentEnd="true"
             android:background="@android:color/white"
             android:backgroundTint="@android:color/white"
-            android:text='@{"Playback Speed " + viewModel.playbackSpeed}' />
+            android:text='@{"Playback Speed " + beatBox.playbackSpeed}' />
 
         <SeekBar
             android:id="@+id/seek_bar"
             android:background="@android:color/white"
             android:backgroundTint="@android:color/white"
-            android:min="@{viewModel.minProgress}"
-            android:max="@{viewModel.maxProgress}"
+            android:min="@{beatBox.minProgress}"
+            android:max="@{beatBox.maxProgress}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:onProgressChanged="@{viewModel.onProgressChanged}"
-            android:progress="@{viewModel.playbackSpeed}"/>
+            android:onProgressChanged="@{beatBox.onProgressChanged}"
+            android:progress="@{beatBox.playbackSpeed}"/>
     </RelativeLayout>
 
 </layout>
